@@ -72,11 +72,12 @@ function CategoryListing() {
                 img: "dca",
                 catId: "dscsdc",
               },
-            ].map(({ title, img, catId }) => (
+            ].map(({ title, img, catId }, ind) => (
               <CategoryCard
                 categoryId={catId}
                 categoryImg={img}
                 CategoryTitle={title}
+                key={ind}
               />
             ))}
           </Grid2>
