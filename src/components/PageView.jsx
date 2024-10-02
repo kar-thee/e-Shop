@@ -5,6 +5,7 @@ function PageView() {
   return (
     <>
       <Navbar />
+
       {/* here all routing children components render  */}
       <Outlet />
     </>

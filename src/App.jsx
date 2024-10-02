@@ -5,6 +5,7 @@ import PageView from "./components/PageView";
 import CategoryListing from "./pages/CategoryListing";
 import NotFound from "./pages/NotFound";
 import ProductListing from "./pages/ProductListing";
+import Detail from "./pages/Detail";
 import Cart from "./pages/Cart";
 import Orders from "./pages/Orders";
 import CategoryDashBoard from "./pages/settings/CategoryDashBoard";
@@ -28,8 +29,12 @@ function App() {
           element: <CategoryListing />,
         },
         {
-          path: "/products",
+          path: "/products/:catId",
           element: <ProductListing />,
+        },
+        {
+          path: "/detail/:productId",
+          element: <Detail />,
         },
         {
           path: "/cart",
