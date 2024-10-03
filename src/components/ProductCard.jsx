@@ -27,6 +27,7 @@ function ProductCard({ imgUrl, productName, productId, productPrice }) {
             height="200"
             image={imgUrl}
             alt={productName}
+            sx={{ minWidth: "299px" }}
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">

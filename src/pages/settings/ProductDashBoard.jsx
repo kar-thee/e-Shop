@@ -1,5 +1,6 @@
 import { AddBox } from "@mui/icons-material";
 import {
+  Box,
   Button,
   Container,
   Grid2,
@@ -83,12 +84,29 @@ function ProductDashBoard() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredArray.map((row, ind) => (
-                <ProductTable row={row} key={ind} />
-              ))}
+              {filteredArray.length > 0 &&
+                filteredArray.map((row, ind) => (
+                  <ProductTable row={row} key={ind} />
+                ))}
             </TableBody>
           </Table>
         </TableContainer>
+
+        {filteredArray.length === 0 && (
+          <>
+            <Box
+              sx={{
+                textAlign: "center",
+                my: 5,
+                py: 5,
+                border: "1px solid grey",
+                width: "100%",
+              }}
+            >
+              <Typography variant="h4">No Products Available !</Typography>
+            </Box>
+          </>
+        )}
       </Container>
     </>
   );

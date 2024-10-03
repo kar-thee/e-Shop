@@ -40,8 +40,8 @@ function Cart() {
                     <CartBox cartInfo={cartObj} key={ind} />
                   ))
                 ) : (
-                  <Box sx={{ textAlign: "center" }}>
-                    <Typography variant="h6"> Empty Cart :(</Typography>
+                  <Box sx={{ textAlign: "center", mt: 5 }}>
+                    <Typography variant="h4"> Empty Cart :(</Typography>
                   </Box>
                 )}
               </Stack>
@@ -117,6 +117,7 @@ function Cart() {
                       mt: 2,
                       width: "100%",
                     }}
+                    disabled={inCart.length > 0 ? false : true}
                     onClick={placeOrder}
                   >
                     Place Order

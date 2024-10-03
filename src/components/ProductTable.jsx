@@ -55,6 +55,7 @@ function ProductTable({ row }) {
             overflow: "hidden",
             maxHeight: "60px",
           }}
+          className="text"
         >
           {row.prodDesc}
         </TableCell>

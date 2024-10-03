@@ -1,4 +1,4 @@
-import { Container, Grid2, Typography } from "@mui/material";
+import { Box, Container, Grid2, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import useShopStates from "../hooks/useShopStates";
@@ -20,15 +20,31 @@ function ProductListing() {
             spacing={4}
             sx={{ justifyContent: "center", my: 2, pb: 2 }}
           >
-            {filteredArray.map(({ prodName, prodImgUrl, price }, ind) => (
-              <ProductCard
-                imgUrl={prodImgUrl}
-                productName={prodName}
-                productId={prodName}
-                productPrice={price}
-                key={ind}
-              />
-            ))}
+            {filteredArray.length > 0 ? (
+              filteredArray.map(({ prodName, prodImgUrl, price }, ind) => (
+                <ProductCard
+                  imgUrl={prodImgUrl}
+                  productName={prodName}
+                  productId={prodName}
+                  productPrice={price}
+                  key={ind}
+                />
+              ))
+            ) : (
+              <>
+                <Box
+                  sx={{
+                    textAlign: "center",
+                    my: 5,
+                    py: 5,
+                    border: "1px solid grey",
+                    width: "80%",
+                  }}
+                >
+                  <Typography variant="h4">No Products Available !</Typography>
+                </Box>
+              </>
+            )}
           </Grid2>
         </Container>
       </Container>
