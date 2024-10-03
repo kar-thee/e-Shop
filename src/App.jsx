@@ -53,7 +53,7 @@ function App() {
           element: <CategoryDashBoard />,
         },
         {
-          path: "/settings/products",
+          path: "/settings/products/:catId",
           element: <ProductDashBoard />,
         },
         {
