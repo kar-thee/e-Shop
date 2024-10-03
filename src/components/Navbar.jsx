@@ -10,8 +10,10 @@ import {
   Typography,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import useShopStates from "../hooks/useShopStates";
 
 function Navbar() {
+  const { inCart } = useShopStates();
   return (
     <>
       <AppBar sx={{ background: "#455463" }} position="static">
@@ -37,7 +39,7 @@ function Navbar() {
               <Box sx={{ mr: { xs: 2, md: 3 } }} component={Link} to="/cart">
                 <Tooltip title="Cart">
                   <IconButton>
-                    <Badge badgeContent="5" color="primary">
+                    <Badge badgeContent={inCart.length || "0"} color="primary">
                       <ShoppingCart sx={{ color: "#fff" }} />
                     </Badge>
                   </IconButton>
