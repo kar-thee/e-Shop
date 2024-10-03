@@ -17,7 +17,7 @@ function ProductMgmt() {
 
         <Grid2
           container
-          sx={{ height: "550px", pl: 2 }}
+          sx={{ height: "500px", pl: 2 }}
           direction={"column"}
           justifyContent={"space-evenly"}
         >
@@ -45,14 +45,6 @@ function ProductMgmt() {
             />
             <TextField label="Stock" variant="outlined" sx={{ width: "45%" }} />
           </Grid2>
-
-          {/* <Grid2 size={{ xs: 6, md: 5 }}>
-            <TextField
-              label="Stock"
-              variant="outlined"
-              sx={{ width: "100%" }}
-            />
-          </Grid2> */}
 
           <Grid2 size={{ xs: 12, md: 6 }}>
             <TextField
