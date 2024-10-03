@@ -7,9 +7,17 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useShopDispatch from "../hooks/useShopDispatch";
 
 function ProductCard({ imgUrl, productName, productId, productPrice }) {
+  const dispatch = useShopDispatch();
+  const navigate = useNavigate();
+
+  const updateCartFunc = () => {
+    dispatch({ type: "updateCartFromPid", payload: productId });
+    navigate("/cart");
+  };
   return (
     <>
       <Card sx={{ maxWidth: 320 }}>
@@ -38,6 +46,7 @@ function ProductCard({ imgUrl, productName, productId, productPrice }) {
               backgroundColor: "#6067b3",
               textTransform: "none",
             }}
+            onClick={updateCartFunc}
           >
             Add to Cart
           </Button>

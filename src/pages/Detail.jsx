@@ -8,16 +8,24 @@ import {
   Grid2 as Grid,
   Typography,
 } from "@mui/material";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import useShopStates from "../hooks/useShopStates";
+import useShopDispatch from "../hooks/useShopDispatch";
 
 function Detail() {
   const { productId } = useParams();
   const { productsArray } = useShopStates();
+  const dispatch = useShopDispatch();
+  const navigate = useNavigate();
+
   const productToDisplay = productsArray.find(
     (obj) => obj.prodName === productId
   );
 
+  const updateCart = () => {
+    dispatch({ type: "updateCartInfo", payload: productToDisplay });
+    navigate("/cart");
+  };
   return (
     <>
       <Container maxWidth="xl" sx={{ my: 5, justifyContent: "center" }}>
@@ -77,8 +85,7 @@ function Detail() {
                         textTransform: "none",
                         mt: 4,
                       }}
-                      component={Link}
-                      to="/cart"
+                      onClick={updateCart}
                     >
                       Add to Cart
                     </Button>

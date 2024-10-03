@@ -1,6 +1,5 @@
 import { Container, Grid2, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
-import CategoryCard from "../components/CategoryCard";
 import ProductCard from "../components/ProductCard";
 import useShopStates from "../hooks/useShopStates";
 
@@ -8,6 +7,7 @@ function ProductListing() {
   const { catId } = useParams();
   const { productsArray } = useShopStates();
   const filteredArray = productsArray.filter((obj) => obj.category === catId);
+
   return (
     <>
       <Container maxWidth="xl">

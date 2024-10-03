@@ -2,7 +2,6 @@ import {
   Box,
   Button,
   CardActions,
-  CardContent,
   CardMedia,
   Container,
   Grid2 as Grid,
@@ -10,9 +9,21 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import useShopStates from "../hooks/useShopStates";
+import CartBox from "../components/CartBox";
+import useShopDispatch from "../hooks/useShopDispatch";
 
 function Cart() {
+  const { inCart } = useShopStates();
+  const dispatch = useShopDispatch();
+  const navigate = useNavigate();
+
+  const placeOrder = () => {
+    dispatch({ type: "placeOrder" });
+    navigate("/orders");
+  };
+
   return (
     <>
       <Container maxWidth="lg" sx={{ my: 5, justifyContent: "center" }}>
@@ -24,45 +35,29 @@ function Cart() {
           <Grid container spacing={2}>
             <Grid size={{ xs: 12, md: 8 }} sx={{ width: "100%" }}>
               <Stack>
-                <Box
-                  sx={{
-                    border: "1px solid grey",
-                    minHeight: "80px",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    p: 2,
-                  }}
-                >
-                  <Grid
-                    container
-                    size="6"
-                    direction={"row"}
-                    justifyContent={"space-between"}
-                    alignContent={"center"}
-                  >
-                    <CardMedia
-                      component="img"
-                      height="64"
-                      image="https://www.healthyeating.org/images/default-source/home-0.0/nutrition-topics-2.0/general-nutrition-wellness/2-2-2-2foodgroups_vegetables_detailfeature.jpg?sfvrsn=226f1bc7_6"
-                      alt="cart image"
-                      sx={{ width: "64px" }}
-                    />
-
-                    <Stack sx={{ pl: 3, justifyContent: "center" }}>
-                      <Typography>Tomato</Typography>
-                      <Typography>₹ 100</Typography>
-                    </Stack>
-                  </Grid>
-
-                  <Box>Increment buttons</Box>
-                </Box>
+                {inCart.length > 0 ? (
+                  inCart.map((cartObj, ind) => (
+                    <CartBox cartInfo={cartObj} key={ind} />
+                  ))
+                ) : (
+                  <Box sx={{ textAlign: "center" }}>
+                    <Typography variant="h6"> Empty Cart :(</Typography>
+                  </Box>
+                )}
               </Stack>
             </Grid>
+
             <Grid size={{ xs: 12, md: 4 }}>
               <Grid direction={"column"}>
                 <Paper
-                  sx={{ border: "1px solid grey", px: 1, minHeight: "300px" }}
+                  sx={{
+                    border: "1px solid grey",
+                    px: 1,
+                    minHeight: "300px",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                  }}
                 >
                   <Stack>
                     <Typography
@@ -72,13 +67,44 @@ function Cart() {
                       Summary
                     </Typography>
 
-                    <Box
-                      sx={{ display: "flex", justifyContent: "space-between" }}
-                    >
-                      <Typography>Tomato</Typography>
-                      <Typography>2 * 100 = 200</Typography>
-                    </Box>
+                    {inCart.length > 0 ? (
+                      inCart.map((cartObj, ind) => (
+                        <Box
+                          sx={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                          }}
+                          key={ind}
+                        >
+                          <Typography>{cartObj.prodName}</Typography>
+                          <Typography>
+                            1 * {cartObj.price} = ₹{cartObj.price}
+                          </Typography>
+                        </Box>
+                      ))
+                    ) : (
+                      <></>
+                      // <Box sx={{ textAlign: "center" }}>
+                      //   <Typography variant="h6"> Empty Cart :(</Typography>
+                      // </Box>
+                    )}
                   </Stack>
+
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      pb: 2,
+                    }}
+                  >
+                    <Typography>Total Amount</Typography>
+                    <Typography>
+                      ₹{" "}
+                      {inCart.reduce((acc, obj) => {
+                        return acc + +obj.price;
+                      }, 0)}
+                    </Typography>
+                  </Box>
                 </Paper>
 
                 <CardActions sx={{ display: "flex", mb: 1, pl: 0.5 }}>
@@ -91,8 +117,7 @@ function Cart() {
                       mt: 2,
                       width: "100%",
                     }}
-                    component={Link}
-                    to="/orders"
+                    onClick={placeOrder}
                   >
                     Place Order
                   </Button>
