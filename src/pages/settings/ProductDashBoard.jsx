@@ -12,11 +12,16 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { Link } from "react-router-dom";
-import CategoryTable from "../../components/CategoryTable";
+import { Link, useParams } from "react-router-dom";
 import ProductTable from "../../components/ProductTable";
+import useShopStates from "../../hooks/useShopStates";
 
 function ProductDashBoard() {
+  const params = useParams();
+  const { productsArray } = useShopStates();
+  const filteredArray = productsArray.filter(
+    (obj) => obj.category === params.catId
+  );
   return (
     <>
       <Container maxWidth="lg" sx={{ py: 1, my: 2, justifyContent: "center" }}>
@@ -78,32 +83,7 @@ function ProductDashBoard() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {[
-                {
-                  name: "dscsdcs",
-                  calories: "250",
-                  calories: "250",
-                  fat: "250",
-                  carbs: "250",
-                  protein: "20",
-                },
-                {
-                  name: "dscsdcs",
-                  calories: "250",
-                  calories: "250",
-                  fat: "250",
-                  carbs: "250",
-                  protein: "20",
-                },
-                {
-                  name: "dscsdcs",
-                  calories: "250",
-                  calories: "250",
-                  fat: "250",
-                  carbs: "250",
-                  protein: "20",
-                },
-              ].map((row, ind) => (
+              {filteredArray.map((row, ind) => (
                 <ProductTable row={row} key={ind} />
               ))}
             </TableBody>

@@ -6,8 +6,43 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { useState } from "react";
+import useShopDispatch from "../../hooks/useShopDispatch";
+import { useNavigate } from "react-router-dom";
 
 function CategoryMgmt() {
+  const [state, setState] = useState({ catName: "", imgUrl: "" });
+  const dispatch = useShopDispatch();
+  const navigate = useNavigate();
+
+  const onChangeHandler = (ev) => {
+    if (ev.target.name === "catName") {
+      return setState((prevState) => ({
+        ...prevState,
+        catName: ev.target.value,
+      }));
+    }
+
+    return setState((prevState) => ({
+      ...prevState,
+      imgUrl: ev.target.value,
+    }));
+  };
+
+  const createCategory = () => {
+    dispatch({
+      type: "createCategory",
+      payload: {
+        catName: state.catName,
+        catImgUrl: state.imgUrl,
+        inStock: 10,
+        totalSold: 0,
+        isActive: true,
+      },
+    });
+    navigate("/settings");
+  };
+
   return (
     <>
       <Container maxWidth="lg" sx={{ my: 5, justifyContent: "center" }}>
@@ -26,6 +61,9 @@ function CategoryMgmt() {
               label="Category Name"
               variant="outlined"
               sx={{ width: "100%" }}
+              value={state.catName}
+              name="catName"
+              onChange={(ev) => onChangeHandler(ev)}
             />
           </Grid2>
 
@@ -34,6 +72,9 @@ function CategoryMgmt() {
               label="Category Image URL"
               variant="outlined"
               sx={{ width: "100%" }}
+              value={state.imgUrl}
+              name="catImgUrl"
+              onChange={(ev) => onChangeHandler(ev)}
             />
           </Grid2>
         </Grid2>
@@ -47,6 +88,7 @@ function CategoryMgmt() {
               textTransform: "none",
               mt: 1,
             }}
+            onClick={createCategory}
           >
             Create
           </Button>

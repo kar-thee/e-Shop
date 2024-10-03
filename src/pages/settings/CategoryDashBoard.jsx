@@ -14,8 +14,10 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import CategoryTable from "../../components/CategoryTable";
+import useShopStates from "../../hooks/useShopStates";
 
 function CategoryDashBoard() {
+  const { categoriesArray } = useShopStates();
   return (
     <>
       <Container maxWidth="lg" sx={{ py: 1, my: 2, justifyContent: "center" }}>
@@ -71,32 +73,7 @@ function CategoryDashBoard() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {[
-                {
-                  name: "dscsdcs",
-                  calories: "250",
-                  calories: "250",
-                  fat: "250",
-                  carbs: "250",
-                  protein: "20",
-                },
-                {
-                  name: "dscsdcs",
-                  calories: "250",
-                  calories: "250",
-                  fat: "250",
-                  carbs: "250",
-                  protein: "20",
-                },
-                {
-                  name: "dscsdcs",
-                  calories: "250",
-                  calories: "250",
-                  fat: "250",
-                  carbs: "250",
-                  protein: "20",
-                },
-              ].map((row, ind) => (
+              {categoriesArray.map((row, ind) => (
                 <CategoryTable row={row} key={ind} />
               ))}
             </TableBody>

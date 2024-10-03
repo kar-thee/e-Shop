@@ -20,13 +20,16 @@ function ProductTable({ row }) {
       >
         <TableCell
           align="center"
-          sx={{ display: "flex", justifyContent: "center" }}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+          }}
         >
           <Box sx={{ width: "60px" }}>
             <CardMedia
               component="img"
               height="48"
-              image="https://www.healthyeating.org/images/default-source/home-0.0/nutrition-topics-2.0/general-nutrition-wellness/2-2-2-2foodgroups_vegetables_detailfeature.jpg?sfvrsn=226f1bc7_6"
+              image={row.prodImgUrl}
               alt="NA"
             />
           </Box>
@@ -40,14 +43,24 @@ function ProductTable({ row }) {
             to="/"
             sx={{ textDecoration: "none" }}
           >
-            Name
+            {row.prodName}
           </Typography>
         </TableCell>
 
-        <TableCell align="center">description</TableCell>
-        <TableCell align="center">price</TableCell>
-        <TableCell align="center">in stock</TableCell>
-        <TableCell align="center">total sold</TableCell>
+        <TableCell
+          align="center"
+          sx={{
+            maxWidth: "300px",
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+            maxHeight: "60px",
+          }}
+        >
+          {row.prodDesc}
+        </TableCell>
+        <TableCell align="center">{row.price}</TableCell>
+        <TableCell align="center">{row.availableStock}</TableCell>
+        <TableCell align="center">{row.totalSold}</TableCell>
 
         <TableCell align="center">
           <Switch defaultChecked color="secondary" />

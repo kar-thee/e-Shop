@@ -26,7 +26,7 @@ function CategoryTable({ row }) {
             <CardMedia
               component="img"
               height="48"
-              image="https://www.healthyeating.org/images/default-source/home-0.0/nutrition-topics-2.0/general-nutrition-wellness/2-2-2-2foodgroups_vegetables_detailfeature.jpg?sfvrsn=226f1bc7_6"
+              image={row.catImgUrl}
               alt="NA"
             />
           </Box>
@@ -37,18 +37,18 @@ function CategoryTable({ row }) {
           <Typography
             variant="p"
             component={Link}
-            to="/settings/products/4r3"
+            to={`/settings/products/${row.catName}`}
             sx={{ textDecoration: "none" }}
           >
-            Name
+            {row.catName}
           </Typography>
         </TableCell>
 
-        <TableCell align="center">in stock</TableCell>
-        <TableCell align="center">total sold</TableCell>
+        <TableCell align="center">{row.inStock}</TableCell>
+        <TableCell align="center">{row.totalSold}</TableCell>
 
         <TableCell align="center">
-          <Switch defaultChecked color="secondary" />
+          <Switch defaultChecked={row.isActive} color="secondary" />
         </TableCell>
         <TableCell align="center">
           <Box>

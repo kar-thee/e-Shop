@@ -8,14 +8,21 @@ import {
   Grid2 as Grid,
   Typography,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import useShopStates from "../hooks/useShopStates";
 
 function Detail() {
+  const { productId } = useParams();
+  const { productsArray } = useShopStates();
+  const productToDisplay = productsArray.find(
+    (obj) => obj.prodName === productId
+  );
+
   return (
     <>
       <Container maxWidth="xl" sx={{ my: 5, justifyContent: "center" }}>
         <Typography variant="h6" component="strong">
-          Categories / Vegetable
+          {productToDisplay.category} / {productToDisplay.prodName}
         </Typography>
 
         <Container maxWidth="xl" sx={{ flexGrow: 1, my: 2, py: 2 }}>
@@ -25,7 +32,7 @@ function Detail() {
                 <CardMedia
                   component="img"
                   height="400"
-                  image="https://www.healthyeating.org/images/default-source/home-0.0/nutrition-topics-2.0/general-nutrition-wellness/2-2-2-2foodgroups_vegetables_detailfeature.jpg?sfvrsn=226f1bc7_6"
+                  image={productToDisplay.prodImgUrl}
                   alt="image"
                 />
               </Box>
@@ -39,7 +46,7 @@ function Detail() {
                     component="div"
                     sx={{ pb: 2 }}
                   >
-                    productName
+                    {productToDisplay.prodName}
                   </Typography>
                   <Typography variant="body2" component="p" sx={{ pb: 4 }}>
                     Lorem Ipsum is simply dummy text of the printing and
@@ -58,7 +65,7 @@ function Detail() {
                     variant="body2"
                     sx={{ color: "text.secondary", pl: 0.5 }}
                   >
-                    ₹ productPrice
+                    ₹ {productToDisplay.price}
                   </Typography>
 
                   <CardActions sx={{ display: "flex", mb: 1, pl: 0.5 }}>
