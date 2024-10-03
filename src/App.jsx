@@ -12,6 +12,7 @@ import CategoryDashBoard from "./pages/settings/CategoryDashBoard";
 import ProductDashBoard from "./pages/settings/ProductDashBoard";
 import CategoryMgmt from "./pages/settings/CategoryMgmt";
 import ProductMgmt from "./pages/settings/ProductMgmt";
+import AppProvider from "./context/AppProvider";
 
 function App() {
   const routesArray = createBrowserRouter([
@@ -79,11 +80,13 @@ function App() {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
+      <AppProvider>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
 
-        <RouterProvider router={routesArray} />
-      </ThemeProvider>
+          <RouterProvider router={routesArray} />
+        </ThemeProvider>
+      </AppProvider>
     </>
   );
 }

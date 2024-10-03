@@ -1,16 +1,7 @@
-import {
-  Button,
-  Card,
-  CardActionArea,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Container,
-  Grid2,
-  Typography,
-} from "@mui/material";
-import { Link } from "react-router-dom";
+import { Container, Grid2, Typography } from "@mui/material";
 import CategoryCard from "../components/CategoryCard";
+import useShopDispatch from "../hooks/useShopDispatch";
+import useShopStates from "../hooks/useShopStates";
 
 function CategoryListing() {
   return (
