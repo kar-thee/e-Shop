@@ -40,7 +40,7 @@ function ProductTable({ row }) {
           <Typography
             variant="p"
             component={Link}
-            to="/"
+            to={`/detail/${row.prodName}`}
             sx={{ textDecoration: "none" }}
           >
             {row.prodName}

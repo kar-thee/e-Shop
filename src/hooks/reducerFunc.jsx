@@ -24,8 +24,10 @@ function reducerFunc(state, actionObj) {
     case "updateCartFromPid": {
       console.log("updateCartFromPid");
       const productToAdd = state.productsArray.find(
-        (obj) => obj.prodName === actionObj.payload
+        (obj) => obj.prodName === actionObj.payload.productId
       );
+      productToAdd.quantity = actionObj.payload.quantity;
+
       const updatedCart = new Set([...state.inCart, productToAdd]);
       return {
         ...state,
