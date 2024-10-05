@@ -11,42 +11,40 @@ import { useState } from "react";
 import useShopDispatch from "../hooks/useShopDispatch";
 
 function CartBox({ cartInfo }) {
-  console.log(cartInfo, "cartInfo box");
   const dispatch = useShopDispatch();
-  const [quantity, setQuantity] = useState(cartInfo.quantity);
 
   const handleDecrement = () => {
-    console.log("handleDecrement", quantity);
-    if (quantity > 0) {
-      console.log("handleDecrement if case", quantity);
+    if (cartInfo.quantity > 0) {
       dispatch({
         type: "decrementCartFromPid",
-        payload: { productId: cartInfo.prodName, quantity: quantity - 1 },
+        payload: {
+          productId: cartInfo.prodName,
+          quantity: cartInfo.quantity - 1,
+        },
       });
-      setQuantity((prev) => prev - 1);
     } else {
-      console.log("handleDecrement else case", quantity);
       dispatch({
         type: "removeFromCartFromPid",
         payload: { productId: cartInfo.prodName },
       });
-      setQuantity(0);
     }
   };
 
   const handleIncrement = () => {
-    if (quantity <= cartInfo.availableStock - cartInfo.totalSold) {
+    if (cartInfo.quantity <= cartInfo.availableStock - cartInfo.totalSold) {
       dispatch({
         type: "updateCartFromPid",
-        payload: { productId: cartInfo.prodName, quantity: quantity + 1 },
+        payload: {
+          productId: cartInfo.prodName,
+          quantity: cartInfo.quantity + 1,
+        },
       });
-      setQuantity((prev) => prev + 1);
     }
   };
 
   return (
     <>
-      {quantity > 0 && (
+      {cartInfo.quantity > 0 && (
         <Box
           sx={{
             border: "1px solid grey",
@@ -90,12 +88,13 @@ function CartBox({ cartInfo }) {
             <IconButton onClick={handleDecrement} color="secondary">
               <Remove />
             </IconButton>
-            <Typography variant="body1">{quantity}</Typography>
+            <Typography variant="body1">{cartInfo.quantity}</Typography>
             <IconButton
               onClick={handleIncrement}
               color="primary"
               disabled={
-                quantity >= cartInfo.availableStock - cartInfo.totalSold
+                cartInfo.quantity >=
+                cartInfo.availableStock - cartInfo.totalSold
               }
             >
               <Add />

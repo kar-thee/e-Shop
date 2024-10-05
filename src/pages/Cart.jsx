@@ -41,6 +41,7 @@ function Cart() {
           <Grid container spacing={2}>
             <Grid size={{ xs: 12, md: 8 }} sx={{ width: "100%" }}>
               <Stack>
+                {console.log(inCart, "inCart from withing", inCart.length)}
                 {inCart.length > 0 ? (
                   inCart.map((cartObj, ind) => (
                     <CartBox cartInfo={cartObj} key={ind} />

@@ -64,14 +64,11 @@ function reducerFunc(state, actionObj) {
             if (obj.prodName === actionObj.payload.productId) {
               if (obj.quantity > 0) {
                 obj.quantity = actionObj.payload.quantity;
-              } else {
-                // Remove item from cart if quantity is 1
-                return null;
               }
             }
             return obj;
           })
-          .filter(Boolean); // removing all null values
+          .filter((obj) => obj.quantity > 0);
 
         console.log("newCartValue", newCartValue);
 
