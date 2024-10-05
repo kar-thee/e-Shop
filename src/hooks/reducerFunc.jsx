@@ -87,12 +87,6 @@ function reducerFunc(state, actionObj) {
         (obj) => obj.prodName !== actionObj.payload.productId
       );
 
-      // console.log(state.productsArray, "updatedCart1");
-      // const updatedCart = state.productsArray.map((obj) => {
-      //   if (obj.prodName === actionObj.payload.productId) {
-      //     obj.quantity = actionObj.payload.quantity;
-      //   }
-      // });
       console.log(updatedCart, "updatedCart2");
       return {
         ...state,
@@ -101,10 +95,9 @@ function reducerFunc(state, actionObj) {
     }
 
     case "placeOrder": {
-      console.log("placeOrder");
       return {
         ...state,
-        placedOrders: [...state.inCart],
+        placedOrders: [...state.placedOrders, actionObj.payload],
         inCart: [],
       };
     }

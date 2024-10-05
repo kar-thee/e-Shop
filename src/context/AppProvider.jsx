@@ -6,10 +6,12 @@ import AppContext from "./AppContext";
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducerFunc, defaultState, () => {
     const inCartFromStorage = JSON.parse(localStorage.getItem("inCart"));
+    const ordersFromStorage = JSON.parse(localStorage.getItem("placedOrders"));
 
     return {
       ...defaultState,
       inCart: inCartFromStorage ? [...inCartFromStorage] : [],
+      placedOrders: ordersFromStorage ? ordersFromStorage : [],
     };
   });
   return (

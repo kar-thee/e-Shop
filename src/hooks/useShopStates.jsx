@@ -6,7 +6,12 @@ const useShopStates = () => {
 
   useEffect(() => {
     localStorage.setItem("inCart", JSON.stringify([...state.inCart]));
-  }, [state.inCart]);
+
+    localStorage.setItem(
+      "placedOrders",
+      JSON.stringify([...state.placedOrders])
+    );
+  }, [state.inCart, state.placedOrders]);
 
   return state;
 };

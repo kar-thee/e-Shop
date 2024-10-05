@@ -13,16 +13,21 @@ import { useNavigate } from "react-router-dom";
 import useShopStates from "../hooks/useShopStates";
 import CartBox from "../components/CartBox";
 import useShopDispatch from "../hooks/useShopDispatch";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 function Cart() {
   const { inCart } = useShopStates();
   const dispatch = useShopDispatch();
   const navigate = useNavigate();
-  // const [cartState, setCartState] = useState([]);
 
   const placeOrder = () => {
-    dispatch({ type: "placeOrder" });
+    const placedOrderInfo = {
+      orderId: uuidv4(),
+      orderPlacedTime: new Date().toISOString(),
+      itemsArray: inCart,
+    };
+    dispatch({ type: "placeOrder", payload: placedOrderInfo });
     navigate("/orders");
   };
 
