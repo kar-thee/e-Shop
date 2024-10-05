@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { useReducer } from "react";
 import reducerFunc from "../hooks/reducerFunc";
 import defaultState from "../hooks/defaultState";
 import AppContext from "./AppContext";
@@ -9,7 +9,7 @@ const AppProvider = ({ children }) => {
 
     return {
       ...defaultState,
-      inCart: [], //inCartFromStorage ? [...inCartFromStorage] : [],
+      inCart: inCartFromStorage ? [...inCartFromStorage] : [],
     };
   });
   return (
