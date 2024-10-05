@@ -19,7 +19,7 @@ function Cart() {
   const { inCart } = useShopStates();
   const dispatch = useShopDispatch();
   const navigate = useNavigate();
-  const [cartState, setCartState] = useState([]);
+  // const [cartState, setCartState] = useState([]);
 
   const placeOrder = () => {
     dispatch({ type: "placeOrder" });
@@ -27,7 +27,7 @@ function Cart() {
   };
 
   useEffect(() => {
-    setCartState(inCart);
+    console.log("inCart updated", inCart, inCart.length);
   }, [inCart]);
 
   return (
@@ -41,8 +41,8 @@ function Cart() {
           <Grid container spacing={2}>
             <Grid size={{ xs: 12, md: 8 }} sx={{ width: "100%" }}>
               <Stack>
-                {cartState.length > 0 ? (
-                  cartState.map((cartObj, ind) => (
+                {inCart.length > 0 ? (
+                  inCart.map((cartObj, ind) => (
                     <CartBox cartInfo={cartObj} key={ind} />
                   ))
                 ) : (
@@ -73,28 +73,25 @@ function Cart() {
                       Summary
                     </Typography>
 
-                    {inCart.length > 0 ? (
-                      inCart.map((cartObj, ind) => (
-                        <Box
-                          sx={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                          }}
-                          key={ind}
-                        >
-                          <Typography>{cartObj.prodName}</Typography>
-                          <Typography>
-                            {cartObj.quantity} * {cartObj.price} = ₹
-                            {cartObj.price * cartObj.quantity}
-                          </Typography>
-                        </Box>
-                      ))
-                    ) : (
-                      <></>
-                      // <Box sx={{ textAlign: "center" }}>
-                      //   <Typography variant="h6"> Empty Cart :(</Typography>
-                      // </Box>
-                    )}
+                    {inCart.length > 0 &&
+                      inCart.map(
+                        (cartObj, ind) =>
+                          cartObj.quantity > 0 && (
+                            <Box
+                              sx={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                              }}
+                              key={ind}
+                            >
+                              <Typography>{cartObj.prodName}</Typography>
+                              <Typography>
+                                {cartObj.quantity} * {cartObj.price} = ₹
+                                {cartObj.price * cartObj.quantity}
+                              </Typography>
+                            </Box>
+                          )
+                      )}
                   </Stack>
 
                   <Box
@@ -102,6 +99,7 @@ function Cart() {
                       display: "flex",
                       justifyContent: "space-between",
                       pb: 2,
+                      mt: 2,
                     }}
                   >
                     <Typography>Total Amount</Typography>

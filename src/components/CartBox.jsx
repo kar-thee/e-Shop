@@ -16,15 +16,18 @@ function CartBox({ cartInfo }) {
   const [quantity, setQuantity] = useState(cartInfo.quantity);
 
   const handleDecrement = () => {
+    console.log("handleDecrement", quantity);
     if (quantity > 0) {
+      console.log("handleDecrement if case", quantity);
       dispatch({
-        type: "updateCartFromPid",
+        type: "decrementCartFromPid",
         payload: { productId: cartInfo.prodName, quantity: quantity - 1 },
       });
       setQuantity((prev) => prev - 1);
     } else {
+      console.log("handleDecrement else case", quantity);
       dispatch({
-        type: "updateCartFromPid",
+        type: "removeFromCartFromPid",
         payload: { productId: cartInfo.prodName },
       });
       setQuantity(0);

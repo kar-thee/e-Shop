@@ -49,7 +49,7 @@ function ProductCard({
 
   const handleDecrement = () => {
     dispatch({
-      type: "updateCartFromPid",
+      type: "decrementCartFromPid",
       payload: { productId, quantity: quantity - 1 },
     });
     setQuantity((prev) => prev - 1);
