@@ -13,16 +13,22 @@ import { useNavigate } from "react-router-dom";
 import useShopStates from "../hooks/useShopStates";
 import CartBox from "../components/CartBox";
 import useShopDispatch from "../hooks/useShopDispatch";
+import { useEffect, useState } from "react";
 
 function Cart() {
   const { inCart } = useShopStates();
   const dispatch = useShopDispatch();
   const navigate = useNavigate();
+  const [cartState, setCartState] = useState([]);
 
   const placeOrder = () => {
     dispatch({ type: "placeOrder" });
     navigate("/orders");
   };
+
+  useEffect(() => {
+    setCartState(inCart);
+  }, [inCart]);
 
   return (
     <>
@@ -35,8 +41,8 @@ function Cart() {
           <Grid container spacing={2}>
             <Grid size={{ xs: 12, md: 8 }} sx={{ width: "100%" }}>
               <Stack>
-                {inCart.length > 0 ? (
-                  inCart.map((cartObj, ind) => (
+                {cartState.length > 0 ? (
+                  cartState.map((cartObj, ind) => (
                     <CartBox cartInfo={cartObj} key={ind} />
                   ))
                 ) : (
@@ -78,7 +84,8 @@ function Cart() {
                         >
                           <Typography>{cartObj.prodName}</Typography>
                           <Typography>
-                            1 * {cartObj.price} = ₹{cartObj.price}
+                            {cartObj.quantity} * {cartObj.price} = ₹
+                            {cartObj.price * cartObj.quantity}
                           </Typography>
                         </Box>
                       ))
@@ -101,7 +108,7 @@ function Cart() {
                     <Typography>
                       ₹{" "}
                       {inCart.reduce((acc, obj) => {
-                        return acc + +obj.price;
+                        return acc + +obj.price * obj.quantity;
                       }, 0)}
                     </Typography>
                   </Box>

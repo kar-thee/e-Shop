@@ -11,7 +11,8 @@ import {
 import { Link } from "react-router-dom";
 import useShopDispatch from "../hooks/useShopDispatch";
 import { Add, Remove } from "@mui/icons-material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useShopStates from "../hooks/useShopStates";
 
 function ProductCard({
   imgUrl,
@@ -19,16 +20,31 @@ function ProductCard({
   productId,
   productPrice,
   availableStock,
+  totalSold,
 }) {
   const dispatch = useShopDispatch();
   const [quantity, setQuantity] = useState(0);
+  const { inCart } = useShopStates();
+
+  useEffect(() => {
+    console.log(inCart, "inCart");
+    if (inCart.length > 0) {
+      const isProductInCart = inCart.find((val) => val.prodName === productId);
+      if (isProductInCart) {
+        console.log(isProductInCart, "isProductInCart");
+        setQuantity(isProductInCart.quantity);
+      }
+    }
+  });
 
   const updateCartFunc = () => {
-    dispatch({
-      type: "updateCartFromPid",
-      payload: { productId, quantity: 1 },
-    });
-    setQuantity(1);
+    if (availableStock - totalSold > 0) {
+      dispatch({
+        type: "updateCartFromPid",
+        payload: { productId, quantity: 1 },
+      });
+      setQuantity(1);
+    }
   };
 
   const handleDecrement = () => {
@@ -38,12 +54,21 @@ function ProductCard({
     });
     setQuantity((prev) => prev - 1);
   };
+
   const handleIncrement = () => {
-    dispatch({
-      type: "updateCartFromPid",
-      payload: { productId, quantity: quantity + 1 },
-    });
-    setQuantity((prev) => prev + 1);
+    console.log(
+      quantity,
+      availableStock,
+      totalSold,
+      "quantity, availableStock, totalSold"
+    );
+    if (quantity <= availableStock - totalSold) {
+      dispatch({
+        type: "updateCartFromPid",
+        payload: { productId, quantity: quantity + 1 },
+      });
+      setQuantity((prev) => prev + 1);
+    }
   };
 
   return (
@@ -79,8 +104,11 @@ function ProductCard({
                   textTransform: "none",
                 }}
                 onClick={updateCartFunc}
+                disabled={availableStock - totalSold > 0 ? false : true}
               >
-                Add to Cart
+                {availableStock - totalSold > 0
+                  ? "Add to Cart"
+                  : "Out of Stock"}
               </Button>
             </>
           ) : (
@@ -92,7 +120,7 @@ function ProductCard({
               <IconButton
                 onClick={handleIncrement}
                 color="primary"
-                disabled={quantity >= availableStock}
+                disabled={quantity >= availableStock - totalSold}
               >
                 <Add />
               </IconButton>

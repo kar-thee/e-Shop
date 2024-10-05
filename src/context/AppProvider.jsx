@@ -4,7 +4,14 @@ import defaultState from "../hooks/defaultState";
 import AppContext from "./AppContext";
 
 const AppProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducerFunc, defaultState);
+  const [state, dispatch] = useReducer(reducerFunc, defaultState, () => {
+    const inCartFromStorage = JSON.parse(localStorage.getItem("inCart"));
+
+    return {
+      ...defaultState,
+      inCart: [], //inCartFromStorage ? [...inCartFromStorage] : [],
+    };
+  });
   return (
     <AppContext.Provider value={{ state, dispatch }}>
       {children}

@@ -21,15 +21,22 @@ function ProductListing() {
             sx={{ justifyContent: "center", my: 2, pb: 2 }}
           >
             {filteredArray.length > 0 ? (
-              filteredArray.map(({ prodName, prodImgUrl, price }, ind) => (
-                <ProductCard
-                  imgUrl={prodImgUrl}
-                  productName={prodName}
-                  productId={prodName}
-                  productPrice={price}
-                  key={ind}
-                />
-              ))
+              filteredArray.map(
+                (
+                  { prodName, prodImgUrl, price, availableStock, totalSold },
+                  ind
+                ) => (
+                  <ProductCard
+                    imgUrl={prodImgUrl}
+                    productName={prodName}
+                    productId={prodName}
+                    productPrice={price}
+                    availableStock={+availableStock}
+                    totalSold={totalSold}
+                    key={ind}
+                  />
+                )
+              )
             ) : (
               <>
                 <Box
