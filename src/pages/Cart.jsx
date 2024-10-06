@@ -26,6 +26,9 @@ function Cart() {
       orderId: uuidv4(),
       orderPlacedTime: new Date().toISOString(),
       itemsArray: inCart,
+      total: inCart.reduce((acc, obj) => {
+        return acc + +obj.price * obj.quantity;
+      }, 0),
     };
     dispatch({ type: "placeOrder", payload: placedOrderInfo });
     navigate("/orders");
