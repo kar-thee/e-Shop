@@ -13,6 +13,8 @@ import ProductDashBoard from "./pages/settings/ProductDashBoard";
 import CategoryMgmt from "./pages/settings/CategoryMgmt";
 import ProductMgmt from "./pages/settings/ProductMgmt";
 import AppProvider from "./context/AppProvider";
+import EditCategory from "./pages/settings/EditCategory";
+import EditProduct from "./pages/settings/EditProduct";
 
 function App() {
   const routesArray = createBrowserRouter([
@@ -64,6 +66,14 @@ function App() {
         {
           path: "/settings/productmgmt",
           element: <ProductMgmt />,
+        },
+        {
+          path: "/settings/categoryedit",
+          element: <EditCategory />,
+        },
+        {
+          path: "/settings/productedit",
+          element: <EditProduct />,
         },
       ],
       errorElement: <NotFound />,

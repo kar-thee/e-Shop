@@ -2,34 +2,29 @@ import {
   Button,
   CardActions,
   Container,
-  FormControl,
   Grid2,
-  InputLabel,
-  MenuItem,
-  Select,
   TextField,
   Typography,
 } from "@mui/material";
 import { useState } from "react";
 import useShopDispatch from "../../hooks/useShopDispatch";
-import useShopStates from "../../hooks/useShopStates";
-import { v4 as uuid } from "uuid";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-function ProductMgmt() {
-  const [state, setState] = useState({
-    prodName: "",
-    prodDesc: "",
-    price: "",
-    availableStock: "",
-    prodImgUrl: "",
-    totalSold: 0,
-    category: "",
-  });
+function EditProduct() {
+  const passedData = useLocation();
   const navigate = useNavigate();
+  const currentProductData = passedData.state.productInfo;
+  const [state, setState] = useState({
+    prodName: currentProductData.prodName,
+    prodDesc: currentProductData.prodDesc,
+    price: currentProductData.price,
+    availableStock: currentProductData.availableStock,
+    prodImgUrl: currentProductData.prodImgUrl,
+    totalSold: currentProductData.totalSold,
+    category: currentProductData.category,
+  });
 
   const dispatch = useShopDispatch();
-  const { categoriesArray } = useShopStates();
 
   const onChangeHandler = (ev) => {
     switch (ev.target.name) {
@@ -48,17 +43,14 @@ function ProductMgmt() {
       case "img":
         setState((prev) => ({ ...prev, prodImgUrl: ev.target.value }));
         break;
-      case "category":
-        setState((prev) => ({ ...prev, category: ev.target.value }));
-        break;
       default:
         break;
     }
   };
 
-  const createProduct = () => {
+  const editProduct = () => {
     dispatch({
-      type: "createProduct",
+      type: "editProduct",
       payload: {
         prodName: state.prodName,
         prodDesc: state.prodDesc,
@@ -67,7 +59,7 @@ function ProductMgmt() {
         prodImgUrl: state.prodImgUrl,
         category: state.category,
         totalSold: state.totalSold,
-        pid: uuid(),
+        pid: currentProductData.pid,
       },
     });
     navigate(`/settings/products/${state.category}`);
@@ -137,28 +129,6 @@ function ProductMgmt() {
               onChange={(ev) => onChangeHandler(ev)}
             />
           </Grid2>
-
-          <Grid2 size={{ xs: 12, md: 6 }}>
-            <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id="categorySelectLabel">Category</InputLabel>
-              <Select
-                labelId="categorySelectLabel"
-                id="categorySelect"
-                value={state.category}
-                label="Category"
-                name="category"
-                onChange={(ev) => onChangeHandler(ev)}
-                sx={{ width: "200%" }}
-                required={true}
-              >
-                {categoriesArray.map((obj) => (
-                  <MenuItem value={obj.catName} key={obj.cid}>
-                    {obj.catName}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid2>
         </Grid2>
 
         <CardActions sx={{ display: "flex", mb: 1, pl: 2.5 }}>
@@ -170,9 +140,9 @@ function ProductMgmt() {
               textTransform: "none",
               mt: 1,
             }}
-            onClick={createProduct}
+            onClick={editProduct}
           >
-            Create
+            Edit
           </Button>
         </CardActions>
       </Container>
@@ -180,4 +150,4 @@ function ProductMgmt() {
   );
 }
 
-export default ProductMgmt;
+export default EditProduct;

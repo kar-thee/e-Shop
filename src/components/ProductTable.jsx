@@ -68,7 +68,13 @@ function ProductTable({ row }) {
         </TableCell>
         <TableCell align="center">
           <Box>
-            <IconButton aria-label="delete" size="medium">
+            <IconButton
+              aria-label="edit"
+              size="medium"
+              component={Link}
+              to="/settings/productedit"
+              state={{ productInfo: row }}
+            >
               <Edit fontSize="inherit" />
             </IconButton>
             <IconButton aria-label="delete" size="medium" sx={{ color: "red" }}>

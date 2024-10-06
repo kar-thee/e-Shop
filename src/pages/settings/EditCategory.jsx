@@ -8,13 +8,19 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import useShopDispatch from "../../hooks/useShopDispatch";
-import { useNavigate } from "react-router-dom";
-import { v4 as uuid } from "uuid";
+import { useLocation, useNavigate } from "react-router-dom";
 
-function CategoryMgmt() {
-  const [state, setState] = useState({ catName: "", imgUrl: "" });
+function EditCategory() {
+  const passedData = useLocation();
+  const currentCatData = passedData.state.catInfo;
+  const [state, setState] = useState({
+    catName: currentCatData.catName,
+    imgUrl: currentCatData.catImgUrl,
+  });
   const dispatch = useShopDispatch();
   const navigate = useNavigate();
+
+  console.log(passedData, "passedData");
 
   const onChangeHandler = (ev) => {
     if (ev.target.name === "catName") {
@@ -30,16 +36,13 @@ function CategoryMgmt() {
     }));
   };
 
-  const createCategory = () => {
+  const editCategory = () => {
     dispatch({
-      type: "createCategory",
+      type: "editCategory",
       payload: {
+        cid: currentCatData.cid,
         catName: state.catName,
         catImgUrl: state.imgUrl,
-        inStock: 10,
-        totalSold: 0,
-        isActive: true,
-        cid: uuid(),
       },
     });
     navigate("/settings");
@@ -90,9 +93,9 @@ function CategoryMgmt() {
               textTransform: "none",
               mt: 1,
             }}
-            onClick={createCategory}
+            onClick={editCategory}
           >
-            Create
+            Edit
           </Button>
         </CardActions>
       </Container>
@@ -100,4 +103,4 @@ function CategoryMgmt() {
   );
 }
 
-export default CategoryMgmt;
+export default EditCategory;

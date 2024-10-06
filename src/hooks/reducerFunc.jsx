@@ -7,6 +7,23 @@ function reducerFunc(state, actionObj) {
         categoriesArray: [...state.categoriesArray, actionObj.payload],
       };
     }
+
+    case "editCategory": {
+      console.log("editCategory");
+      const updatedCatArray = state.categoriesArray.map((obj) => {
+        if (obj.cid === actionObj.payload.cid) {
+          obj.catName = actionObj.payload.catName;
+          obj.catImgUrl = actionObj.payload.catImgUrl;
+          return obj;
+        }
+        return obj;
+      });
+      return {
+        ...state,
+        categoriesArray: updatedCatArray,
+      };
+    }
+
     case "createProduct": {
       console.log("createProduct");
       return {
@@ -14,6 +31,22 @@ function reducerFunc(state, actionObj) {
         productsArray: [...state.productsArray, actionObj.payload],
       };
     }
+
+    case "editProduct": {
+      console.log("editProduct");
+      const updatedProductArray = state.productsArray.map((obj) => {
+        if (obj.pid === actionObj.payload.pid) {
+          obj = { ...actionObj.payload };
+          return obj;
+        }
+        return obj;
+      });
+      return {
+        ...state,
+        productsArray: updatedProductArray,
+      };
+    }
+
     case "updateCartInfo": {
       console.log("updateCartInfo");
       return {
