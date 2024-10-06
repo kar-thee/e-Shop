@@ -23,6 +23,13 @@ function ProductTable({ row }) {
     });
   };
 
+  const activeStatusToggle = (checkedValue) => {
+    dispatch({
+      type: "updateProductStatus",
+      payload: { pid: row.pid, toggleValue: checkedValue },
+    });
+  };
+
   return (
     <>
       <TableRow
@@ -76,7 +83,11 @@ function ProductTable({ row }) {
         <TableCell align="center">{row.totalSold}</TableCell>
 
         <TableCell align="center">
-          <Switch defaultChecked color="secondary" />
+          <Switch
+            defaultChecked={row.isActive}
+            color="secondary"
+            onChange={(ev) => activeStatusToggle(ev.target.checked)}
+          />
         </TableCell>
         <TableCell align="center">
           <Box>

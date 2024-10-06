@@ -176,6 +176,33 @@ function reducerFunc(state, actionObj) {
       };
     }
 
+    case "updateCategoryStatus": {
+      const updatedCatArray = state.categoriesArray.map((obj) => {
+        if (obj.cid === actionObj.payload.cid) {
+          obj.isActive = actionObj.payload.toggleValue;
+        }
+        return obj;
+      });
+      return {
+        ...state,
+        categoriesArray: updatedCatArray,
+      };
+    }
+
+    case "updateProductStatus": {
+      const updatedProductArray = state.productsArray.map((obj) => {
+        if (obj.pid === actionObj.payload.pid) {
+          obj.isActive = actionObj.payload.toggleValue;
+        }
+        return obj;
+      });
+
+      return {
+        ...state,
+        productsArray: updatedProductArray,
+      };
+    }
+
     default:
       return state;
   }

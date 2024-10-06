@@ -44,6 +44,13 @@ function CategoryTable({ row }) {
     }
   };
 
+  const activeStatusToggle = (checkedValue) => {
+    dispatch({
+      type: "updateCategoryStatus",
+      payload: { cid: row.cid, toggleValue: checkedValue },
+    });
+  };
+
   return (
     <>
       <TableRow
@@ -81,7 +88,11 @@ function CategoryTable({ row }) {
         <TableCell align="center">{row.totalSold}</TableCell>
 
         <TableCell align="center">
-          <Switch defaultChecked={row.isActive} color="secondary" />
+          <Switch
+            defaultChecked={row.isActive}
+            color="secondary"
+            onChange={(ev) => activeStatusToggle(ev.target.checked)}
+          />
         </TableCell>
         <TableCell align="center">
           <Box>

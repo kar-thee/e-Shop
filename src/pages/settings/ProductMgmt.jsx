@@ -67,6 +67,7 @@ function ProductMgmt() {
         prodImgUrl: state.prodImgUrl,
         category: state.category,
         totalSold: state.totalSold,
+        isActive: true,
         pid: uuid(),
       },
     });

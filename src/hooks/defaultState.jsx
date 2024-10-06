@@ -49,6 +49,7 @@ const defaultState = {
       category: "Vegetables",
       totalSold: 5,
       pid: "ae70c1e7-3ecd-4c5e-9b40-c283d03e953a",
+      isActive: true,
     },
     {
       prodName: "Apple",
@@ -61,6 +62,7 @@ const defaultState = {
       category: "Fruits",
       totalSold: 5,
       pid: "16e3e213-53b7-40f8-a451-ab1b8dc7b804",
+      isActive: true,
     },
     {
       prodName: "Television",
@@ -73,6 +75,7 @@ const defaultState = {
       category: "Electronics",
       totalSold: 5,
       pid: "6d5e9f38-7455-4b68-89b8-7daaf1cf0c5b",
+      isActive: true,
     },
     {
       prodName: "Ladys finger",
@@ -85,6 +88,7 @@ const defaultState = {
       category: "Vegetables",
       totalSold: 5,
       pid: "f79530bc-8b53-4ecf-ae2e-24e48b6a5f99",
+      isActive: true,
     },
     {
       prodName: "Potato",
@@ -97,6 +101,7 @@ const defaultState = {
       category: "Vegetables",
       totalSold: 5,
       pid: "c1d1e306-cdbb-4a3d-aacf-a03cb264832a",
+      isActive: true,
     },
     {
       prodName: "Spinach",
@@ -109,6 +114,7 @@ const defaultState = {
       category: "Vegetables",
       totalSold: 5,
       pid: "a141dd98-d227-4b05-a3a4-f6e390286e5b",
+      isActive: true,
     },
     {
       prodName: "Orange",
@@ -121,6 +127,7 @@ const defaultState = {
       category: "Fruits",
       totalSold: 5,
       pid: "a3e5f72e-b4b8-4ad4-9caa-b043f3f515dc",
+      isActive: true,
     },
     {
       prodName: "Banana",
@@ -132,6 +139,7 @@ const defaultState = {
       category: "Fruits",
       totalSold: 5,
       pid: "c6097b0e-d1aa-4d7c-9486-b0568e3873a2",
+      isActive: true,
     },
     {
       prodName: "WaterMelon",
@@ -144,6 +152,7 @@ const defaultState = {
       category: "Fruits",
       totalSold: 5,
       pid: "b326f80a-12c1-4fc8-8956-0650523071aa",
+      isActive: true,
     },
     {
       prodName: "Grapes",
@@ -156,6 +165,7 @@ const defaultState = {
       category: "Fruits",
       totalSold: 5,
       pid: "8fc5b3b3-56d2-49a3-9b88-17a2c9e5772f",
+      isActive: true,
     },
     {
       prodName: "PineApple",
@@ -168,6 +178,7 @@ const defaultState = {
       category: "Fruits",
       totalSold: 5,
       pid: "50acca65-f9a7-4a23-88af-33be3215e5f5",
+      isActive: true,
     },
     {
       prodName: "Playstation 5",
@@ -180,6 +191,7 @@ const defaultState = {
       category: "Electronics",
       totalSold: 5,
       pid: "e5c3b5e5-5752-45b9-b8b9-32538438576f",
+      isActive: true,
     },
     {
       prodName: "Iphone",
@@ -192,6 +204,7 @@ const defaultState = {
       category: "Electronics",
       totalSold: 5,
       pid: "a6088e36-e7f2-4985-8d76-e2abe6943396",
+      isActive: true,
     },
     {
       prodName: "Laptop",
@@ -204,6 +217,7 @@ const defaultState = {
       category: "Electronics",
       totalSold: 5,
       pid: "0db82d5a-a5bf-4a7f-9a66-8b5958800821",
+      isActive: true,
     },
   ],
   inCart: [],
