@@ -208,6 +208,7 @@ const defaultState = {
   ],
   inCart: [],
   placedOrders: [],
+  snackBarState: false,
 };
 
 export default defaultState;

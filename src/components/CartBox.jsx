@@ -7,7 +7,6 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
 import useShopDispatch from "../hooks/useShopDispatch";
 
 function CartBox({ cartInfo }) {

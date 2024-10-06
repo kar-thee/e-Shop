@@ -4,6 +4,7 @@ import {
   Container,
   Grid2,
   Paper,
+  Snackbar,
   Table,
   TableBody,
   TableCell,
@@ -15,9 +16,18 @@ import {
 import { Link } from "react-router-dom";
 import CategoryTable from "../../components/CategoryTable";
 import useShopStates from "../../hooks/useShopStates";
+import useShopDispatch from "../../hooks/useShopDispatch";
 
 function CategoryDashBoard() {
-  const { categoriesArray } = useShopStates();
+  const { categoriesArray, snackBarState } = useShopStates();
+  const dispatch = useShopDispatch();
+
+  const closeSnackBar = () => {
+    dispatch({
+      type: "closeSnackBar",
+    });
+  };
+
   return (
     <>
       <Container maxWidth="lg" sx={{ py: 1, my: 2, justifyContent: "center" }}>
@@ -79,6 +89,13 @@ function CategoryDashBoard() {
             </TableBody>
           </Table>
         </TableContainer>
+
+        <Snackbar
+          open={snackBarState}
+          autoHideDuration={8000}
+          onClose={closeSnackBar}
+          message="Can't Delete Category with Products"
+        />
       </Container>
     </>
   );

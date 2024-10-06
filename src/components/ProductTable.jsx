@@ -6,11 +6,23 @@ import {
   Switch,
   TableCell,
   TableRow,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import useShopDispatch from "../hooks/useShopDispatch";
 
 function ProductTable({ row }) {
+  const dispatch = useShopDispatch();
+  const deleteProduct = () => {
+    dispatch({
+      type: "deleteProduct",
+      payload: {
+        pid: row.pid,
+      },
+    });
+  };
+
   return (
     <>
       <TableRow
@@ -68,18 +80,28 @@ function ProductTable({ row }) {
         </TableCell>
         <TableCell align="center">
           <Box>
-            <IconButton
-              aria-label="edit"
-              size="medium"
-              component={Link}
-              to="/settings/productedit"
-              state={{ productInfo: row }}
-            >
-              <Edit fontSize="inherit" />
-            </IconButton>
-            <IconButton aria-label="delete" size="medium" sx={{ color: "red" }}>
-              <Delete fontSize="inherit" />
-            </IconButton>
+            <Tooltip title="Edit Product">
+              <IconButton
+                aria-label="edit"
+                size="medium"
+                component={Link}
+                to="/settings/productedit"
+                state={{ productInfo: row }}
+              >
+                <Edit fontSize="inherit" />
+              </IconButton>
+            </Tooltip>
+
+            <Tooltip title="Delete Product">
+              <IconButton
+                aria-label="delete"
+                size="medium"
+                sx={{ color: "red" }}
+                onClick={deleteProduct}
+              >
+                <Delete fontSize="inherit" />
+              </IconButton>
+            </Tooltip>
           </Box>
         </TableCell>
       </TableRow>

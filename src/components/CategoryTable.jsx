@@ -10,13 +10,40 @@ import {
   Typography,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import useShopDispatch from "../hooks/useShopDispatch";
+import useShopStates from "../hooks/useShopStates";
 
 function CategoryTable({ row }) {
-  const editCategory = () => {
-    console.log(row, "cat info");
+  const dispatch = useShopDispatch();
+  const { productsArray } = useShopStates();
+
+  const deleteCategory = () => {
+    const productsInThisCategory = productsArray.filter((obj) => {
+      console.log(
+        obj.category,
+        row.catName,
+        "obj.category === row.catName",
+        obj.category === row.catName
+      );
+      if (obj.category === row.catName) {
+        return obj;
+      }
+    });
+    if (productsInThisCategory.length > 0) {
+      //cant delete if any products present in the category
+      dispatch({
+        type: "openSnackBar",
+      });
+    } else {
+      dispatch({
+        type: "deleteCategory",
+        payload: {
+          cid: row.cid,
+        },
+      });
+    }
   };
 
-  const deleteCategory = () => {};
   return (
     <>
       <TableRow

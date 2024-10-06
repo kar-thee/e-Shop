@@ -135,6 +135,47 @@ function reducerFunc(state, actionObj) {
       };
     }
 
+    case "deleteProduct": {
+      console.log("delProduct");
+      const updatedProductArray = state.productsArray.filter((obj) => {
+        if (obj.pid !== actionObj.payload.pid) {
+          return obj;
+        }
+      });
+      return {
+        ...state,
+        productsArray: updatedProductArray,
+      };
+    }
+
+    case "deleteCategory": {
+      console.log("delCategory");
+      const updatedCatArray = state.categoriesArray.filter((obj) => {
+        if (obj.cid !== actionObj.payload.cid) {
+          return obj;
+        }
+      });
+      console.log(updatedCatArray, "diff", state.categoriesArray);
+      return {
+        ...state,
+        categoriesArray: updatedCatArray,
+      };
+    }
+
+    case "openSnackBar": {
+      return {
+        ...state,
+        snackBarState: true,
+      };
+    }
+
+    case "closeSnackBar": {
+      return {
+        ...state,
+        snackBarState: false,
+      };
+    }
+
     default:
       return state;
   }
