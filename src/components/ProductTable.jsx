@@ -11,9 +11,13 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import useShopDispatch from "../hooks/useShopDispatch";
+import { useState } from "react";
 
 function ProductTable({ row }) {
   const dispatch = useShopDispatch();
+
+  const [switchState, setSwitchState] = useState(row.isActive);
+
   const deleteProduct = () => {
     dispatch({
       type: "deleteProduct",
@@ -28,6 +32,7 @@ function ProductTable({ row }) {
       type: "updateProductStatus",
       payload: { pid: row.pid, toggleValue: checkedValue },
     });
+    setSwitchState(checkedValue);
   };
 
   return (
@@ -84,7 +89,7 @@ function ProductTable({ row }) {
 
         <TableCell align="center">
           <Switch
-            defaultChecked={row.isActive}
+            checked={switchState}
             color="secondary"
             onChange={(ev) => activeStatusToggle(ev.target.checked)}
           />

@@ -128,10 +128,10 @@ function reducerFunc(state, actionObj) {
     }
 
     case "placeOrder": {
-      console.log(state, "state@@@");
+      console.log(state, "state@@@", actionObj.payload.itemsArray);
       const updatedProductArray = state.productsArray.map((productObj) => {
         const inCartProduct = actionObj.payload.itemsArray.find(
-          (cartObj) => cartObj.pid === productObj.pid
+          (cartObj) => cartObj.pid === productObj.pid && productObj.isActive
         );
         console.log(inCartProduct, "inCartProduct", productObj);
         if (inCartProduct) {
@@ -194,10 +194,14 @@ function reducerFunc(state, actionObj) {
     case "updateCategoryStatus": {
       const updatedCatArray = state.categoriesArray.map((obj) => {
         if (obj.cid === actionObj.payload.cid) {
-          obj.isActive = actionObj.payload.toggleValue;
+          return {
+            ...obj,
+            isActive: actionObj.payload.toggleValue,
+          };
         }
         return obj;
       });
+
       return {
         ...state,
         categoriesArray: updatedCatArray,
@@ -207,14 +211,27 @@ function reducerFunc(state, actionObj) {
     case "updateProductStatus": {
       const updatedProductArray = state.productsArray.map((obj) => {
         if (obj.pid === actionObj.payload.pid) {
-          obj.isActive = actionObj.payload.toggleValue;
+          return {
+            ...obj,
+            isActive: actionObj.payload.toggleValue,
+          };
         }
         return obj;
+      });
+      const updatedCart = state.inCart.map((cartObj) => {
+        if (cartObj.pid === actionObj.payload.pid) {
+          return {
+            ...cartObj,
+            isActive: actionObj.payload.toggleValue,
+          };
+        }
+        return cartObj;
       });
 
       return {
         ...state,
         productsArray: updatedProductArray,
+        inCart: updatedCart,
       };
     }
 

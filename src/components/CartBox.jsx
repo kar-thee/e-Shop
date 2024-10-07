@@ -8,9 +8,14 @@ import {
   Typography,
 } from "@mui/material";
 import useShopDispatch from "../hooks/useShopDispatch";
+import useShopStates from "../hooks/useShopStates";
 
 function CartBox({ cartInfo }) {
   const dispatch = useShopDispatch();
+  const { productsArray } = useShopStates();
+
+  const isProductActive =
+    productsArray.find((obj) => obj.pid === cartInfo.pid)?.isActive || false;
 
   const handleDecrement = () => {
     if (cartInfo.quantity > 0) {
@@ -83,20 +88,30 @@ function CartBox({ cartInfo }) {
               alignItems: "center",
             }}
           >
-            <IconButton onClick={handleDecrement} color="secondary">
-              <Remove />
-            </IconButton>
-            <Typography variant="body1">{cartInfo.quantity}</Typography>
-            <IconButton
-              onClick={handleIncrement}
-              color="primary"
-              disabled={
-                cartInfo.quantity >=
-                cartInfo.availableStock - cartInfo.totalSold
-              }
-            >
-              <Add />
-            </IconButton>
+            {isProductActive ? (
+              <>
+                {" "}
+                <IconButton onClick={handleDecrement} color="secondary">
+                  <Remove />
+                </IconButton>
+                <Typography variant="body1">{cartInfo.quantity}</Typography>
+                <IconButton
+                  onClick={handleIncrement}
+                  color="primary"
+                  disabled={
+                    cartInfo.quantity >=
+                    cartInfo.availableStock - cartInfo.totalSold
+                  }
+                >
+                  <Add />
+                </IconButton>
+              </>
+            ) : (
+              <>
+                {" "}
+                <Typography variant="body1">Out of Stock</Typography>{" "}
+              </>
+            )}
           </Box>
         </Box>
       )}

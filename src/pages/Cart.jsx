@@ -25,10 +25,12 @@ function Cart() {
     const placedOrderInfo = {
       orderId: uuidv4(),
       orderPlacedTime: new Date().toISOString(),
-      itemsArray: inCart,
-      total: inCart.reduce((acc, obj) => {
-        return acc + +obj.price * obj.quantity;
-      }, 0),
+      itemsArray: inCart.filter((obj) => obj.isActive),
+      total: inCart
+        .filter((obj) => obj.isActive)
+        .reduce((acc, obj) => {
+          return acc + +obj.price * obj.quantity;
+        }, 0),
     };
     dispatch({ type: "placeOrder", payload: placedOrderInfo });
     navigate("/orders");
@@ -85,7 +87,8 @@ function Cart() {
                     {inCart.length > 0 &&
                       inCart.map(
                         (cartObj, ind) =>
-                          cartObj.quantity > 0 && (
+                          cartObj.quantity > 0 &&
+                          cartObj.isActive && (
                             <Box
                               sx={{
                                 display: "flex",
@@ -114,9 +117,11 @@ function Cart() {
                     <Typography>Total Amount</Typography>
                     <Typography>
                       ₹{" "}
-                      {inCart.reduce((acc, obj) => {
-                        return acc + +obj.price * obj.quantity;
-                      }, 0)}
+                      {inCart
+                        .filter((obj) => obj.isActive)
+                        .reduce((acc, obj) => {
+                          return acc + +obj.price * obj.quantity;
+                        }, 0)}
                     </Typography>
                   </Box>
                 </Paper>
