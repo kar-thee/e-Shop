@@ -14,7 +14,6 @@ import OrdersInfo from "../components/OrdersInfo";
 
 function Orders() {
   const { placedOrders } = useShopStates();
-  console.log(placedOrders, "placedOrders");
   return (
     <>
       <Container

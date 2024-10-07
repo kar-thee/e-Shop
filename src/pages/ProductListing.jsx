@@ -10,7 +10,6 @@ function ProductListing() {
     (obj) => obj.category === catId && obj.isActive && obj.availableStock > 0
   );
 
-  console.log(filteredArray, "filteredArray for products");
   return (
     <>
       <Container maxWidth="xl">

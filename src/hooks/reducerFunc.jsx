@@ -70,7 +70,6 @@ function reducerFunc(state, actionObj) {
           }
           return obj;
         });
-        console.log("newCartValue", newCartValue);
         return {
           ...state,
           inCart: newCartValue,
@@ -103,8 +102,6 @@ function reducerFunc(state, actionObj) {
           })
           .filter((obj) => obj.quantity > 0);
 
-        console.log("newCartValue", newCartValue);
-
         return {
           ...state,
           inCart: newCartValue,
@@ -120,7 +117,6 @@ function reducerFunc(state, actionObj) {
         (obj) => obj.prodName !== actionObj.payload.productId
       );
 
-      console.log(updatedCart, "updatedCart2");
       return {
         ...state,
         inCart: [...updatedCart],
@@ -133,7 +129,6 @@ function reducerFunc(state, actionObj) {
         const inCartProduct = actionObj.payload.itemsArray.find(
           (cartObj) => cartObj.pid === productObj.pid && productObj.isActive
         );
-        console.log(inCartProduct, "inCartProduct", productObj);
         if (inCartProduct) {
           return {
             ...productObj,
@@ -170,7 +165,6 @@ function reducerFunc(state, actionObj) {
           return obj;
         }
       });
-      console.log(updatedCatArray, "diff", state.categoriesArray);
       return {
         ...state,
         categoriesArray: updatedCatArray,

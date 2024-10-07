@@ -27,11 +27,9 @@ function ProductCard({
   const { inCart } = useShopStates();
 
   useEffect(() => {
-    console.log(inCart, "inCart");
     if (inCart.length > 0) {
       const isProductInCart = inCart.find((val) => val.prodName === productId);
       if (isProductInCart) {
-        console.log(isProductInCart, "isProductInCart");
         setQuantity(isProductInCart.quantity);
       }
     }
@@ -56,12 +54,6 @@ function ProductCard({
   };
 
   const handleIncrement = () => {
-    console.log(
-      quantity,
-      availableStock,
-      totalSold,
-      "quantity, availableStock, totalSold"
-    );
     if (quantity <= availableStock - totalSold) {
       dispatch({
         type: "updateCartFromPid",

@@ -20,8 +20,6 @@ function EditCategory() {
   const dispatch = useShopDispatch();
   const navigate = useNavigate();
 
-  console.log(passedData, "passedData");
-
   const onChangeHandler = (ev) => {
     if (ev.target.name === "catName") {
       return setState((prevState) => ({

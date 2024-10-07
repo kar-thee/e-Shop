@@ -19,12 +19,6 @@ function CategoryTable({ row }) {
 
   const deleteCategory = () => {
     const productsInThisCategory = productsArray.filter((obj) => {
-      console.log(
-        obj.category,
-        row.catName,
-        "obj.category === row.catName",
-        obj.category === row.catName
-      );
       if (obj.category === row.catName) {
         return obj;
       }

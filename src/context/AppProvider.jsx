@@ -7,11 +7,23 @@ const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducerFunc, defaultState, () => {
     const inCartFromStorage = JSON.parse(localStorage.getItem("inCart"));
     const ordersFromStorage = JSON.parse(localStorage.getItem("placedOrders"));
+    const productsArrayFromStorage = JSON.parse(
+      localStorage.getItem("productsArray")
+    );
+    const categoriesArrayFromStorage = JSON.parse(
+      localStorage.getItem("categoriesArray")
+    );
 
     return {
       ...defaultState,
       inCart: inCartFromStorage ? [...inCartFromStorage] : [],
       placedOrders: ordersFromStorage ? ordersFromStorage : [],
+      productsArray: productsArrayFromStorage
+        ? productsArrayFromStorage
+        : defaultState.productsArray,
+      categoriesArray: categoriesArrayFromStorage
+        ? categoriesArrayFromStorage
+        : defaultState.categoriesArray,
     };
   });
   return (

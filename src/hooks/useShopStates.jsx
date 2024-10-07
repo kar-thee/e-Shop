@@ -11,7 +11,21 @@ const useShopStates = () => {
       "placedOrders",
       JSON.stringify([...state.placedOrders])
     );
-  }, [state.inCart, state.placedOrders]);
+
+    localStorage.setItem(
+      "productsArray",
+      JSON.stringify([...state.productsArray])
+    );
+    localStorage.setItem(
+      "categoriesArray",
+      JSON.stringify([...state.categoriesArray])
+    );
+  }, [
+    state.inCart,
+    state.placedOrders,
+    state.productsArray,
+    state.categoriesArray,
+  ]);
 
   return state;
 };
