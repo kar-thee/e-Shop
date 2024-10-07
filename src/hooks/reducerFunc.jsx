@@ -128,10 +128,25 @@ function reducerFunc(state, actionObj) {
     }
 
     case "placeOrder": {
+      console.log(state, "state@@@");
+      const updatedProductArray = state.productsArray.map((productObj) => {
+        const inCartProduct = actionObj.payload.itemsArray.find(
+          (cartObj) => cartObj.pid === productObj.pid
+        );
+        console.log(inCartProduct, "inCartProduct", productObj);
+        if (inCartProduct) {
+          return {
+            ...productObj,
+            totalSold: productObj.totalSold + inCartProduct.quantity,
+          };
+        }
+        return productObj;
+      });
       return {
         ...state,
         placedOrders: [...state.placedOrders, actionObj.payload],
         inCart: [],
+        productsArray: updatedProductArray,
       };
     }
 

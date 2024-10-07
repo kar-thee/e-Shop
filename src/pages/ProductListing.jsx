@@ -6,8 +6,11 @@ import useShopStates from "../hooks/useShopStates";
 function ProductListing() {
   const { catId } = useParams();
   const { productsArray } = useShopStates();
-  const filteredArray = productsArray.filter((obj) => obj.category === catId);
+  const filteredArray = productsArray.filter(
+    (obj) => obj.category === catId && obj.isActive && obj.availableStock > 0
+  );
 
+  console.log(filteredArray, "filteredArray for products");
   return (
     <>
       <Container maxWidth="xl">
